@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"strings"
 )
 
 const (
@@ -33,7 +34,7 @@ func (sd *ServerDefinition) Format(format int) string {
 	case FormatSIP002QSAuth:
 		return fmt.Sprintf("ss://%s:%d?auth=%s#%s", sd.Host, sd.Port, auth, url.PathEscape(sd.Name))
 	default:
-		return fmt.Sprintf("ss://%s@%s:%d#%s", auth, sd.Host, sd.Port, url.PathEscape(sd.Name))
+		return fmt.Sprintf("ss://%s@%s:%d#%s", strings.Replace(auth, "=", "", -1), sd.Host, sd.Port, url.PathEscape(sd.Name))
 	}
 }
 
